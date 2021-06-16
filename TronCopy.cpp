@@ -5,7 +5,6 @@
 #include <vector>
 #include <conio.h>
 
-
 using namespace std;
 
 const int sizeVec = 29;
