@@ -5,6 +5,7 @@
 #include <vector>
 #include <conio.h>
 
+
 using namespace std;
 
 const int sizeVec = 29;
@@ -118,112 +119,61 @@ public:
 	string getBotDirection() {
 		return this->botDirection;
 	}
-	void mindBot(bool typeMind, bool flag) {
+	void mindBot(bool typeMind, string directionX, string directionY) {
 		if (typeMind == true) {
 			if (this->botCoordX < getCoordX() && this->botCoordY < getCoordY()) {
-				if (getDirection() == "up") {
+				if (getDirection() == "up" || getDirection() == "right") {
 					if (this->botDirection != "left")
 						this->botDirection = "right";
 				}
-				if (getDirection() == "down") {
+				if (getDirection() == "down" || getDirection() == "left") {
 					if (this->botDirection != "up")
 						this->botDirection = "down";
-				}
-				if (getDirection() == "left") {
-					if (this->botDirection != "up")
-						this->botDirection = "down";
-				}
-				if (getDirection() == "right") {
-					if (this->botDirection != "left")
-						this->botDirection = "right";
 				}
 			}
 			if (this->botCoordX < getCoordX() && this->botCoordY > getCoordY()) {
-				if (getDirection() == "up") {
+				if (getDirection() == "up" || getDirection() == "left") {
 					if (this->botDirection != "down")
 						this->botDirection = "up";
 				}
-				if (getDirection() == "down") {
-					if (this->botDirection != "left")
-						this->botDirection = "right";
-				}
-				if (getDirection() == "left") {
-					if (this->botDirection != "down")
-						this->botDirection = "up";
-				}
-				if (getDirection() == "right") {
+				if (getDirection() == "down" || getDirection() == "right") {
 					if (this->botDirection != "left")
 						this->botDirection = "right";
 				}
 			}
 			if (this->botCoordX > getCoordX() && this->botCoordY > getCoordY()) {
-				if (getDirection() == "up") {
+				if (getDirection() == "up" || getDirection() == "right") {
 					if (this->botDirection != "down")
 						this->botDirection = "up";
 				}
-				if (getDirection() == "down") {
+				if (getDirection() == "down" || getDirection() == "left") {
 					if (this->botDirection != "right")
 						this->botDirection = "left";
-				}
-				if (getDirection() == "left") {
-					if (this->botDirection != "right")
-						this->botDirection = "left";
-				}
-				if (getDirection() == "right") {
-					if (this->botDirection != "down")
-						this->botDirection = "up";
 				}
 			}
 			if (this->botCoordX > getCoordX() && this->botCoordY < getCoordY()) {
-				if (getDirection() == "up") {
+				if (getDirection() == "up" || getDirection() == "left") {
 					if (this->botDirection != "right")
 						this->botDirection = "left";
 				}
-				if (getDirection() == "down") {
-					if (this->botDirection != "up")
-						this->botDirection = "down";
-				}
-				if (getDirection() == "left") {
-					if (this->botDirection != "right")
-						this->botDirection = "left";
-				}
-				if (getDirection() == "right") {
+				if (getDirection() == "down" || getDirection() == "right") {
 					if (this->botDirection != "up")
 						this->botDirection = "down";
 				}
 			}
 		}
 		if (typeMind == false) {
-			if (flag == 0) {
-				if (this->botDirection == "up" && this->botBike != ")") {
-					this->botDirection = "left";
-				}
-				if (this->botDirection == "down" && this->botBike != ")") {
-					this->botDirection = "left";
-				}
-				if (this->botDirection == "left" && this->botBike != "~") {
-					this->botDirection = "up";
-				}
-				if (this->botDirection == "right" && this->botBike != "~") {
-					this->botDirection = "up";
-				}
+			if (this->botDirection == "up" && this->botBike != ")") {
+				this->botDirection = directionX;
 			}
-			if (flag == 1) {
-				if (this->botDirection == "up" && this->botBike != "(") {
-					this->botDirection = "right";
-				}
-				else if (this->botDirection == "down" && this->botBike != "(") {
-					this->botDirection = "right";
-				}
-				else if (this->botDirection == "left" && this->botBike != "~") {
-					this->botDirection = "down";
-				}
-				else if (this->botDirection == "right" && this->botBike != "~") {
-					this->botDirection = "down";
-				}
-				else {
-					throw 404;
-				}
+			if (this->botDirection == "down" && this->botBike != ")") {
+				this->botDirection = directionX;
+			}
+			if (this->botDirection == "left" && this->botBike != "~") {
+				this->botDirection = directionY;
+			}
+			if (this->botDirection == "right" && this->botBike != "~") {
+				this->botDirection = directionY;
 			}
 		}
 	}
@@ -254,7 +204,8 @@ public:
 class Arena : public Bot {
 private:
 	vector<vector<string>>arenaVector;
-	bool flagBot = true, flagMindBot = true;
+	bool flagBot = true;
+	string directionBotX = "", directionBotY = "";
 public:
 	Arena() {
 		for (int i = 0; i < sizeVec; i++) {
@@ -309,80 +260,98 @@ public:
 					else {
 						arenaVector[i][j] = getSymbolBotBike();
 					}
-					if (arenaVector[getBotCoordY() + 1][j] == "#" && arenaVector[i][getBotCoordX() + 1] == "#"
+					if (arenaVector[getBotCoordY() + 1][j] == "#" && arenaVector[getBotCoordY() - 1][j] == "X" && getBotDirection() != "up" && getBotDirection() != "down"
+						|| arenaVector[getBotCoordY() - 1][j] == "#" && arenaVector[getBotCoordY() + 1][j] == "X" && getBotDirection() != "up" && getBotDirection() != "down"
+						|| arenaVector[getBotCoordY() + 1][j] == "*" && arenaVector[getBotCoordY() - 1][j] == "X" && getBotDirection() != "up" && getBotDirection() != "down"
+						|| arenaVector[getBotCoordY() - 1][j] == "*" && arenaVector[getBotCoordY() + 1][j] == "X" && getBotDirection() != "up" && getBotDirection() != "down"
+						|| arenaVector[getBotCoordY() - 1][j] == "X" && arenaVector[getBotCoordY() + 1][j] == "X" && getBotDirection() != "up" && getBotDirection() != "down") {
+						this->flagBot = false;
+						if (getBotDirection() == "right") {
+							this->directionBotX = "right";
+							this->directionBotY = "right";
+						}
+						if (getBotDirection() == "left") {
+							this->directionBotX = "left";
+							this->directionBotY = "left";
+						}
+					}
+					else if (arenaVector[i][getBotCoordX() + 1] == "#" && arenaVector[i][getBotCoordX() - 1] == "X" && getBotDirection() != "left" && getBotDirection() != "right"
+						|| arenaVector[i][getBotCoordX() - 1] == "#" && arenaVector[i][getBotCoordX() + 1] == "X" && getBotDirection() != "left" && getBotDirection() != "right"
+						|| arenaVector[i][getBotCoordX() + 1] == "*" && arenaVector[i][getBotCoordX() - 1] == "X" && getBotDirection() != "left" && getBotDirection() != "right"
+						|| arenaVector[i][getBotCoordX() - 1] == "*" && arenaVector[i][getBotCoordX() + 1] == "X" && getBotDirection() != "left" && getBotDirection() != "right"
+						|| arenaVector[i][getBotCoordX() - 1] == "X" && arenaVector[i][getBotCoordX() + 1] == "X" && getBotDirection() != "left" && getBotDirection() != "right") {
+						this->flagBot = false;
+						if (getBotDirection() == "up") {
+							this->directionBotX = "up";
+							this->directionBotY = "up";
+						}
+						if (getBotDirection() == "down") {
+							this->directionBotX = "down";
+							this->directionBotY = "down";
+						}
+					}
+					else if (arenaVector[getBotCoordY() + 1][j] == "#" && arenaVector[i][getBotCoordX() + 1] == "#"
 						|| arenaVector[getBotCoordY() + 1][j] == "*" && arenaVector[i][getBotCoordX() + 1] == "*"
 						|| arenaVector[getBotCoordY() + 1][j] == "#" && arenaVector[i][getBotCoordX() + 1] == "*"
-						|| arenaVector[getBotCoordY() + 1][j] == "*" && arenaVector[i][getBotCoordX() + 1] == "#") {
+						|| arenaVector[getBotCoordY() + 1][j] == "*" && arenaVector[i][getBotCoordX() + 1] == "#"
+						|| arenaVector[getBotCoordY() + 1][j] == "X" && arenaVector[i][getBotCoordX() + 1] == "X") {
 						if (getBotDirection() == "right") {
 							this->flagBot = false;
-							this->flagMindBot = false;
+							this->directionBotX = "left";
+							this->directionBotY = "up";
 						}
 						if (getBotDirection() == "down") {
 							this->flagBot = false;
-							this->flagMindBot = false;
+							this->directionBotX = "left";
+							this->directionBotY = "up";
 						}
 					}
 					else if (arenaVector[getBotCoordY() - 1][j] == "#" && arenaVector[i][getBotCoordX() - 1] == "#"
 						|| arenaVector[getBotCoordY() - 1][j] == "*" && arenaVector[i][getBotCoordX() - 1] == "*"
 						|| arenaVector[getBotCoordY() - 1][j] == "#" && arenaVector[i][getBotCoordX() - 1] == "*"
-						|| arenaVector[getBotCoordY() - 1][j] == "*" && arenaVector[i][getBotCoordX() - 1] == "#") {
+						|| arenaVector[getBotCoordY() - 1][j] == "*" && arenaVector[i][getBotCoordX() - 1] == "#"
+						|| arenaVector[getBotCoordY() - 1][j] == "X" && arenaVector[i][getBotCoordX() - 1] == "X") {
 						if (getBotDirection() == "left") {
 							this->flagBot = false;
-							this->flagMindBot = true;
+							this->directionBotX = "right";
+							this->directionBotY = "down";
 						}
 						if (getBotDirection() == "up") {
 							this->flagBot = false;
-							this->flagMindBot = true;
+							this->directionBotX = "right";
+							this->directionBotY = "down";
 						}
 					}
 					else if (arenaVector[getBotCoordY() + 1][j] == "#" && arenaVector[i][getBotCoordX() - 1] == "#"
 						|| arenaVector[getBotCoordY() + 1][j] == "*" && arenaVector[i][getBotCoordX() - 1] == "*"
 						|| arenaVector[getBotCoordY() + 1][j] == "#" && arenaVector[i][getBotCoordX() - 1] == "*"
-						|| arenaVector[getBotCoordY() + 1][j] == "*" && arenaVector[i][getBotCoordX() - 1] == "#") {
+						|| arenaVector[getBotCoordY() + 1][j] == "*" && arenaVector[i][getBotCoordX() - 1] == "#"
+						|| arenaVector[getBotCoordY() + 1][j] == "X" && arenaVector[i][getBotCoordX() - 1] == "X") {
 						if (getBotDirection() == "left") {
 							this->flagBot = false;
-							this->flagMindBot = false;
+							this->directionBotX = "right";
+							this->directionBotY = "up";
 						}
 						if (getBotDirection() == "down") {
 							this->flagBot = false;
-							this->flagMindBot = true;
+							this->directionBotX = "right";
+							this->directionBotY = "up";
 						}
 					}
 					else if (arenaVector[getBotCoordY() - 1][j] == "#" && arenaVector[i][getBotCoordX() + 1] == "#"
 						|| arenaVector[getBotCoordY() - 1][j] == "*" && arenaVector[i][getBotCoordX() + 1] == "*"
 						|| arenaVector[getBotCoordY() - 1][j] == "#" && arenaVector[i][getBotCoordX() + 1] == "*"
-						|| arenaVector[getBotCoordY() - 1][j] == "*" && arenaVector[i][getBotCoordX() + 1] == "#") {
+						|| arenaVector[getBotCoordY() - 1][j] == "*" && arenaVector[i][getBotCoordX() + 1] == "#"
+						|| arenaVector[getBotCoordY() - 1][j] == "X" && arenaVector[i][getBotCoordX() + 1] == "X") {
 						if (getBotDirection() == "right") {
 							this->flagBot = false;
-							this->flagMindBot = true;
+							this->directionBotX = "left";
+							this->directionBotY = "down";
 						}
 						if (getBotDirection() == "up") {
 							this->flagBot = false;
-							this->flagMindBot = false;
-						}
-					}
-					else if (arenaVector[i][getBotCoordX() + 1] == "#" || arenaVector[i][getBotCoordX() + 1] == "X" || arenaVector[i][getBotCoordX() + 1] == "*"
-						|| arenaVector[getBotCoordY() + 1][getBotCoordX() + 1] == "#" || arenaVector[getBotCoordY() + 1][getBotCoordX() + 1] == "*"
-						|| arenaVector[getBotCoordY() - 1][getBotCoordX() + 1] == "#" || arenaVector[getBotCoordY() - 1][getBotCoordX() + 1] == "*") {
-						if (getBotDirection() != "left") {
-							this->flagBot = false;
-							this->flagMindBot = false;
-						}
-					}
-					else if (arenaVector[getBotCoordY() - 1][j] == "#" || arenaVector[getBotCoordY() - 1][j] == "X" || arenaVector[getBotCoordY() - 1][j] == "*"
-						|| arenaVector[getBotCoordY() - 1][getBotCoordX() + 1] == "#" || arenaVector[getBotCoordY() - 1][getBotCoordX() + 1] == "*"
-						|| arenaVector[getBotCoordY() - 1][getBotCoordX() - 1] == "#" || arenaVector[getBotCoordY() - 1][getBotCoordX() - 1] == "*") {
-						if (getBotDirection() != "down") {
-							this->flagBot = false;
-							this->flagMindBot = true;
-						}
-					}
-					else if (arenaVector[i][getBotCoordX() - 1] == "#" || arenaVector[i][getBotCoordX() - 1] == "X" || arenaVector[i][getBotCoordX() - 1] == "*"
-						|| arenaVector[getBotCoordY() - 1][getBotCoordX() - 1] == "#" || arenaVector[getBotCoordY() - 1][getBotCoordX() - 1] == "*"
-						|| arenaVector[getBotCoordY() + 1][getBotCoordX() - 1] == "#" || arenaVector[getBotCoordY() + 1][getBotCoordX() - 1] == "*") {
-						if (getBotDirection() != "right") {
-							this->flagBot = false;
-							this->flagMindBot = true;
+							this->directionBotX = "left";
+							this->directionBotY = "down";
 						}
 					}
 					else if (arenaVector[getBotCoordY() + 1][j] == "#" || arenaVector[getBotCoordY() + 1][j] == "X" || arenaVector[getBotCoordY() + 1][j] == "*"
@@ -390,12 +359,46 @@ public:
 						|| arenaVector[getBotCoordY() + 1][getBotCoordX() - 1] == "#" || arenaVector[getBotCoordY() + 1][getBotCoordX() - 1] == "*") {
 						if (getBotDirection() != "up") {
 							this->flagBot = false;
-							this->flagMindBot = false;
+							this->directionBotX = "right";
+							this->directionBotY = "up";
+							if (getBotDirection() == "right") {
+								this->directionBotY = "up";
+								this->directionBotX = "left";
+							}
 						}
 					}
+					else if (arenaVector[i][getBotCoordX() + 1] == "#" || arenaVector[i][getBotCoordX() + 1] == "X" || arenaVector[i][getBotCoordX() + 1] == "*"
+						|| arenaVector[getBotCoordY() + 1][getBotCoordX() + 1] == "#" || arenaVector[getBotCoordY() + 1][getBotCoordX() + 1] == "*"
+						|| arenaVector[getBotCoordY() - 1][getBotCoordX() + 1] == "#" || arenaVector[getBotCoordY() - 1][getBotCoordX() + 1] == "*") {
+						if (getBotDirection() != "left") {
+							this->flagBot = false;
+							this->directionBotX = "left";
+							this->directionBotY = "up";
+						}
+					}
+					else if (arenaVector[getBotCoordY() - 1][j] == "#" || arenaVector[getBotCoordY() - 1][j] == "X" || arenaVector[getBotCoordY() - 1][j] == "*"
+						|| arenaVector[getBotCoordY() - 1][getBotCoordX() + 1] == "#" || arenaVector[getBotCoordY() - 1][getBotCoordX() + 1] == "*"
+						|| arenaVector[getBotCoordY() - 1][getBotCoordX() - 1] == "#" || arenaVector[getBotCoordY() - 1][getBotCoordX() - 1] == "*") {
+						if (getBotDirection() != "down") {
+							this->flagBot = false;
+							this->directionBotX = "left";
+							this->directionBotY = "down";
+						}
+					}
+					else if (arenaVector[i][getBotCoordX() - 1] == "#" || arenaVector[i][getBotCoordX() - 1] == "X" || arenaVector[i][getBotCoordX() - 1] == "*"
+						|| arenaVector[getBotCoordY() - 1][getBotCoordX() - 1] == "#" || arenaVector[getBotCoordY() - 1][getBotCoordX() - 1] == "*"
+						|| arenaVector[getBotCoordY() + 1][getBotCoordX() - 1] == "#" || arenaVector[getBotCoordY() + 1][getBotCoordX() - 1] == "*") {
+						if (getBotDirection() != "right") {
+							this->flagBot = false;
+							this->directionBotX = "right";
+							this->directionBotY = "down";
+						}
+					}
+
 					else {
 						this->flagBot = true;
-						this->flagMindBot = true;
+						this->directionBotX = "left";
+						this->directionBotY = "down";
 					}
 				}
 			}
@@ -413,8 +416,11 @@ public:
 	bool getFlagBot() {
 		return this->flagBot;
 	}
-	bool getFlagMindBot() {
-		return this->flagMindBot;
+	string getDirectionBotX() {
+		return this->directionBotX;
+	}
+	string getDirectionBotY() {
+		return this->directionBotY;
 	}
 };
 
@@ -429,13 +435,15 @@ int main()
 		setlocale(0, "rus");
 		srand(time(0));
 
-		bool mindBot = 1, flagBot = 1;
+		bool flagBot = true;
+		string directionBotY = "", directionBotX = "";
 
 		cout << "Правила:\nЕсли мотоцикл (v) коснётся стены (*), то игра окончится.\n" <<
 			"Также за байком тянется след (#), коснувшись которого игра закончится.\nУправление на WASD.\n" <<
+			"Ещё есть противникб который будет мешать жить\n"
 			"\nВсё ясно? Нажимай на Enter.\n";
 
-		bool flagStart = false, flagGame = false;
+		bool flagStart = false;
 		while (flagStart == false) {
 			int pressStart = _getch();
 			if (pressStart == 13) {
@@ -447,13 +455,14 @@ int main()
 		obj.makeArena();
 		obj.showArena();
 
-		while (flagGame == false) {
-			flagBot = obj.getFlagMindBot();
-			mindBot = obj.getFlagBot();
+		while (true) {
+			flagBot = obj.getFlagBot();
+			directionBotX = obj.getDirectionBotX();
+			directionBotY = obj.getDirectionBotY();
 			if (_kbhit()) {
 				obj.directionBike((int)_getch());
 			}
-			obj.mindBot(mindBot, flagBot);
+			obj.mindBot(flagBot, directionBotX, directionBotY);
 			obj.moveBike();
 			obj.moveBot();
 			obj.makeArena();
