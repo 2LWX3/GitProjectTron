@@ -334,6 +334,16 @@ public:
 							this->directionBotX = "right";
 							this->directionBotY = "down";
 						}
+						if (getBotDirection() == "down") {
+							this->flagBot = false;
+							this->directionBotX = "right";
+							this->directionBotY = "up";
+						}
+						if (getBotDirection() == "right") {
+							this->flagBot = false;
+							this->directionBotX = "right";
+							this->directionBotY = "down";
+						}
 					}
 					else if (arenaVector[getBotCoordY() + 1][j] == "#" && arenaVector[i][getBotCoordX() - 1] == "#"
 						|| arenaVector[getBotCoordY() + 1][j] == "*" && arenaVector[i][getBotCoordX() - 1] == "*"
@@ -352,6 +362,11 @@ public:
 						if (getBotDirection() == "down") {
 							this->flagBot = false;
 							this->directionBotX = "right";
+							this->directionBotY = "up";
+						}
+						if (getBotDirection() == "right") {
+							this->flagBot = false;
+							this->directionBotX = "left";
 							this->directionBotY = "up";
 						}
 					}
@@ -373,6 +388,11 @@ public:
 							this->flagBot = false;
 							this->directionBotX = "left";
 							this->directionBotY = "down";
+						}
+						if (getBotDirection() == "down") {
+							this->flagBot = false;
+							this->directionBotX = "left";
+							this->directionBotY = "up";
 						}
 					}
 					else if (arenaVector[getBotCoordY() + 1][j] == "#" || arenaVector[getBotCoordY() + 1][j] == "X" || arenaVector[getBotCoordY() + 1][j] == "*"
@@ -464,9 +484,9 @@ int main()
 		bool flagBot = true;
 		string directionBotY = "", directionBotX = "";
 
-		cout << "Правила:\nЕсли мотоцикл (v) коснётся стены (*), то игра окончится.\n" <<
-			"Также за байком тянется след (#), коснувшись которого игра закончится.\nУправление на WASD.\n" <<
-			"Ещё есть противникб который будет мешать жить\n"
+		cout << "Правила:\n\nЕсли мотоцикл (v) коснётся стены (*), то игра окончится.\n" <<
+			"Также за байком тянется след (#), коснувшись которого игра закончится.\nЕщё есть противник(~), который будет мешать жить\n" <<
+			"Управление на WASD.\n\n" <<
 			"\nВсё ясно? Нажимай на Enter.\n";
 
 		bool flagStart = false;
