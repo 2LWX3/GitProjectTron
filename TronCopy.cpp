@@ -4,6 +4,7 @@
 #include <ctime>
 #include <vector>
 #include <conio.h>
+#include <windows.h>
 
 
 using namespace std;
@@ -436,6 +437,7 @@ public:
 			}
 			cout << endl;
 		}
+		Sleep(50);
 	}
 	bool getFlagBot() {
 		return this->flagBot;
@@ -448,8 +450,8 @@ public:
 	}
 };
 
-void error(string errorText) {
-	cout << "\n------------------------------------------\n   " << errorText << "\n------------------------------------------\n";
+void endText(string endText) {
+	cout << "\n**************************************************\n\n           " << endText << "\n\n**************************************************\n";
 }
 
 int main()
@@ -498,23 +500,23 @@ int main()
 	{
 		if (endNumber == 20) {
 			system("cls");
-			error("\nНу коснулись стены, игра окончена!\n");
+			endText("Коснулись стены, игра окончена!");
 		}
 		else if (endNumber == 50) {
 			system("cls");
-			error("\nНу коснулись следа, игра окончена!\n");
+			endText("Коснулись следа, игра окончена!");
 		}
 		else if (endNumber == 70) {
 			system("cls");
-			error("\nНичья! Ваши байки взорвались!\n");
+			endText("Ничья! Ваши байки взорвались!");
 		}
 		else if (endNumber == 100) {
 			system("cls");
-			error("\nПротивник погиб! Победа!\n");
+			endText("Противник погиб! Победа!");
 		}
 		else {
 			system("cls");
-			error("\nЧто-то пошло не так!\n");
+			endText("Что-то пошло не так!");
 		}
 	}
 }
