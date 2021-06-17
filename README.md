@@ -1,2 +1,4 @@
 # GitProjectTron
-Add bike
+*******************************
+  The main branch is master
+*******************************
