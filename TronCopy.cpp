@@ -264,7 +264,9 @@ public:
 						|| arenaVector[getBotCoordY() - 1][j] == "#" && arenaVector[getBotCoordY() + 1][j] == "X" && getBotDirection() != "up" && getBotDirection() != "down"
 						|| arenaVector[getBotCoordY() + 1][j] == "*" && arenaVector[getBotCoordY() - 1][j] == "X" && getBotDirection() != "up" && getBotDirection() != "down"
 						|| arenaVector[getBotCoordY() - 1][j] == "*" && arenaVector[getBotCoordY() + 1][j] == "X" && getBotDirection() != "up" && getBotDirection() != "down"
-						|| arenaVector[getBotCoordY() - 1][j] == "X" && arenaVector[getBotCoordY() + 1][j] == "X" && getBotDirection() != "up" && getBotDirection() != "down") {
+						|| arenaVector[getBotCoordY() - 1][j] == "X" && arenaVector[getBotCoordY() + 1][j] == "X" && getBotDirection() != "up" && getBotDirection() != "down"
+						|| arenaVector[getBotCoordY() + 1][j] == "*" && arenaVector[getBotCoordY() - 1][j] == "#" && getBotDirection() != "up" && getBotDirection() != "down"
+						|| arenaVector[getBotCoordY() - 1][j] == "*" && arenaVector[getBotCoordY() + 1][j] == "#" && getBotDirection() != "up" && getBotDirection() != "down") {
 						this->flagBot = false;
 						if (getBotDirection() == "right") {
 							this->directionBotX = "right";
@@ -279,7 +281,9 @@ public:
 						|| arenaVector[i][getBotCoordX() - 1] == "#" && arenaVector[i][getBotCoordX() + 1] == "X" && getBotDirection() != "left" && getBotDirection() != "right"
 						|| arenaVector[i][getBotCoordX() + 1] == "*" && arenaVector[i][getBotCoordX() - 1] == "X" && getBotDirection() != "left" && getBotDirection() != "right"
 						|| arenaVector[i][getBotCoordX() - 1] == "*" && arenaVector[i][getBotCoordX() + 1] == "X" && getBotDirection() != "left" && getBotDirection() != "right"
-						|| arenaVector[i][getBotCoordX() - 1] == "X" && arenaVector[i][getBotCoordX() + 1] == "X" && getBotDirection() != "left" && getBotDirection() != "right") {
+						|| arenaVector[i][getBotCoordX() - 1] == "X" && arenaVector[i][getBotCoordX() + 1] == "X" && getBotDirection() != "left" && getBotDirection() != "right"
+						|| arenaVector[i][getBotCoordX() + 1] == "*" && arenaVector[i][getBotCoordX() - 1] == "#" && getBotDirection() != "left" && getBotDirection() != "right"
+						|| arenaVector[i][getBotCoordX() - 1] == "*" && arenaVector[i][getBotCoordX() + 1] == "#" && getBotDirection() != "left" && getBotDirection() != "right") {
 						this->flagBot = false;
 						if (getBotDirection() == "up") {
 							this->directionBotX = "up";
@@ -294,7 +298,11 @@ public:
 						|| arenaVector[getBotCoordY() + 1][j] == "*" && arenaVector[i][getBotCoordX() + 1] == "*"
 						|| arenaVector[getBotCoordY() + 1][j] == "#" && arenaVector[i][getBotCoordX() + 1] == "*"
 						|| arenaVector[getBotCoordY() + 1][j] == "*" && arenaVector[i][getBotCoordX() + 1] == "#"
-						|| arenaVector[getBotCoordY() + 1][j] == "X" && arenaVector[i][getBotCoordX() + 1] == "X") {
+						|| arenaVector[getBotCoordY() + 1][j] == "X" && arenaVector[i][getBotCoordX() + 1] == "X"
+						|| arenaVector[getBotCoordY() + 1][j] == "#" && arenaVector[i][getBotCoordX() + 1] == "X"
+						|| arenaVector[getBotCoordY() + 1][j] == "X" && arenaVector[i][getBotCoordX() + 1] == "#"
+						|| arenaVector[getBotCoordY() + 1][j] == "*" && arenaVector[i][getBotCoordX() + 1] == "X"
+						|| arenaVector[getBotCoordY() + 1][j] == "X" && arenaVector[i][getBotCoordX() + 1] == "*") {
 						if (getBotDirection() == "right") {
 							this->flagBot = false;
 							this->directionBotX = "left";
@@ -310,7 +318,11 @@ public:
 						|| arenaVector[getBotCoordY() - 1][j] == "*" && arenaVector[i][getBotCoordX() - 1] == "*"
 						|| arenaVector[getBotCoordY() - 1][j] == "#" && arenaVector[i][getBotCoordX() - 1] == "*"
 						|| arenaVector[getBotCoordY() - 1][j] == "*" && arenaVector[i][getBotCoordX() - 1] == "#"
-						|| arenaVector[getBotCoordY() - 1][j] == "X" && arenaVector[i][getBotCoordX() - 1] == "X") {
+						|| arenaVector[getBotCoordY() - 1][j] == "X" && arenaVector[i][getBotCoordX() - 1] == "X"
+						|| arenaVector[getBotCoordY() - 1][j] == "#" && arenaVector[i][getBotCoordX() - 1] == "X"
+						|| arenaVector[getBotCoordY() - 1][j] == "X" && arenaVector[i][getBotCoordX() - 1] == "#"
+						|| arenaVector[getBotCoordY() - 1][j] == "*" && arenaVector[i][getBotCoordX() - 1] == "X"
+						|| arenaVector[getBotCoordY() - 1][j] == "X" && arenaVector[i][getBotCoordX() - 1] == "*") {
 						if (getBotDirection() == "left") {
 							this->flagBot = false;
 							this->directionBotX = "right";
@@ -326,7 +338,11 @@ public:
 						|| arenaVector[getBotCoordY() + 1][j] == "*" && arenaVector[i][getBotCoordX() - 1] == "*"
 						|| arenaVector[getBotCoordY() + 1][j] == "#" && arenaVector[i][getBotCoordX() - 1] == "*"
 						|| arenaVector[getBotCoordY() + 1][j] == "*" && arenaVector[i][getBotCoordX() - 1] == "#"
-						|| arenaVector[getBotCoordY() + 1][j] == "X" && arenaVector[i][getBotCoordX() - 1] == "X") {
+						|| arenaVector[getBotCoordY() + 1][j] == "X" && arenaVector[i][getBotCoordX() - 1] == "X"
+						|| arenaVector[getBotCoordY() + 1][j] == "#" && arenaVector[i][getBotCoordX() - 1] == "X"
+						|| arenaVector[getBotCoordY() + 1][j] == "X" && arenaVector[i][getBotCoordX() - 1] == "#"
+						|| arenaVector[getBotCoordY() + 1][j] == "*" && arenaVector[i][getBotCoordX() - 1] == "X"
+						|| arenaVector[getBotCoordY() + 1][j] == "X" && arenaVector[i][getBotCoordX() - 1] == "*") {
 						if (getBotDirection() == "left") {
 							this->flagBot = false;
 							this->directionBotX = "right";
@@ -342,7 +358,11 @@ public:
 						|| arenaVector[getBotCoordY() - 1][j] == "*" && arenaVector[i][getBotCoordX() + 1] == "*"
 						|| arenaVector[getBotCoordY() - 1][j] == "#" && arenaVector[i][getBotCoordX() + 1] == "*"
 						|| arenaVector[getBotCoordY() - 1][j] == "*" && arenaVector[i][getBotCoordX() + 1] == "#"
-						|| arenaVector[getBotCoordY() - 1][j] == "X" && arenaVector[i][getBotCoordX() + 1] == "X") {
+						|| arenaVector[getBotCoordY() - 1][j] == "X" && arenaVector[i][getBotCoordX() + 1] == "X"
+						|| arenaVector[getBotCoordY() - 1][j] == "#" && arenaVector[i][getBotCoordX() + 1] == "X"
+						|| arenaVector[getBotCoordY() - 1][j] == "X" && arenaVector[i][getBotCoordX() + 1] == "#"
+						|| arenaVector[getBotCoordY() - 1][j] == "*" && arenaVector[i][getBotCoordX() + 1] == "X"
+						|| arenaVector[getBotCoordY() - 1][j] == "X" && arenaVector[i][getBotCoordX() + 1] == "*") {
 						if (getBotDirection() == "right") {
 							this->flagBot = false;
 							this->directionBotX = "left";
@@ -374,6 +394,10 @@ public:
 							this->flagBot = false;
 							this->directionBotX = "left";
 							this->directionBotY = "up";
+							if (getBotDirection() == "up") {
+								this->directionBotX = "left";
+								this->directionBotY = "down";
+							}
 						}
 					}
 					else if (arenaVector[getBotCoordY() - 1][j] == "#" || arenaVector[getBotCoordY() - 1][j] == "X" || arenaVector[getBotCoordY() - 1][j] == "*"
