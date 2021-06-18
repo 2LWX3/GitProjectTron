@@ -1,4 +1,4 @@
-﻿#include <iostream>
+#include <iostream>
 #include <string>
 #include <cmath>
 #include <ctime>
@@ -486,8 +486,7 @@ int main()
 
 		cout << "Правила:\n\nЕсли мотоцикл (v) коснётся стены (*), то игра окончится.\n" <<
 			"Также за байком тянется след (#), коснувшись которого игра закончится.\nЕщё есть противник(~), который будет мешать жить\n" <<
-			"Управление на WASD.\n\n" <<
-			"\nВсё ясно? Нажимай на Enter.\n";
+			"Управление на WASD.\n\n\nВсё ясно? Нажимай на Enter.\n";
 
 		bool flagStart = false;
 		while (flagStart == false) {
@@ -520,11 +519,11 @@ int main()
 	{
 		if (endNumber == 20) {
 			system("cls");
-			endText("Коснулись стены, игра окончена!");
+			endText("Коснулись стены, игра проиграна!");
 		}
 		else if (endNumber == 50) {
 			system("cls");
-			endText("Коснулись следа, игра окончена!");
+			endText("Коснулись следа, игра проиграна!");
 		}
 		else if (endNumber == 70) {
 			system("cls");
