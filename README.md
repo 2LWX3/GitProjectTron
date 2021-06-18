@@ -1,4 +1,4 @@
 # GitProjectTron
 *******************************
-  The main branch is master
+  # The main branch is master
 *******************************
