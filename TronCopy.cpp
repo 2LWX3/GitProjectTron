@@ -44,10 +44,6 @@ public:
 	}
 };
 
-//class Bike : public Track {
-
-//};
-
 class Player : public Track {
 private:
 	string direction;
@@ -80,24 +76,24 @@ public:
 	}
 	void moveBike() {
 		if (this->direction == "right") {
-			setCoordTrack(coordX, coordY);
-			bike = ">";
-			coordX += 1;
+			setCoordTrack(this->coordX, this->coordY);
+			this->bike = ">";
+			this->coordX += 1;
 		}
 		if (this->direction == "left") {
-			setCoordTrack(coordX, coordY);
-			bike = "<";
-			coordX -= 1;
+			setCoordTrack(this->coordX, this->coordY);
+			this->bike = "<";
+			this->coordX -= 1;
 		}
 		if (this->direction == "down") {
-			setCoordTrack(coordX, coordY);
-			bike = "v";
-			coordY += 1;
+			setCoordTrack(this->coordX, this->coordY);
+			this->bike = "v";
+			this->coordY += 1;
 		}
 		if (this->direction == "up") {
-			setCoordTrack(coordX, coordY);
-			bike = "^";
-			coordY -= 1;
+			setCoordTrack(this->coordX, this->coordY);
+			this->bike = "^";
+			this->coordY -= 1;
 		}
 	}
 	string getDirection() {
@@ -108,9 +104,20 @@ public:
 class Bot : public Player {
 private:
 	string botDirection = "right", directionBotX = "", directionBotY = "", botBike = "~";
-	int botCoordX = rand() % 20 + 3, botCoordY = rand() % 10 + 2;
+	int botCoordX = 0, botCoordY = 0;
 	bool flagBot = true;
 public:
+	void setCoordBot() {
+		while (this->flagBot == true) {
+			this->botCoordX = rand() % sizeVec;
+			this->botCoordY = rand() % sizeVec;
+			if (this->botCoordX != sizeVec / 2 && this->botCoordY != sizeVec / 2
+				&& this->botCoordX != sizeVec - 1 && this->botCoordY != sizeVec - 1
+				&& this->botCoordX != 0 && this->botCoordY != 0)
+				this->flagBot = false;
+		}
+		this->flagBot = true;
+	}
 	int getBotCoordX() {
 		return this->botCoordX;
 	}
@@ -164,16 +171,11 @@ public:
 			}
 		}
 		else {
-			if (this->botDirection == "up" && this->botBike != ")") {
+			if (this->botDirection == "up" && this->botBike != ")" && this->botBike != "("
+				|| this->botDirection == "down" && this->botBike != ")" && this->botBike != "(") {
 				this->botDirection = this->directionBotX;
 			}
-			if (this->botDirection == "down" && this->botBike != ")") {
-				this->botDirection = this->directionBotX;
-			}
-			if (this->botDirection == "left" && this->botBike != "~") {
-				this->botDirection = this->directionBotY;
-			}
-			if (this->botDirection == "right" && this->botBike != "~") {
+			if (this->botDirection == "left" && this->botBike != "~" || this->botDirection == "right" && this->botBike != "~") {
 				this->botDirection = this->directionBotY;
 			}
 		}
@@ -446,6 +448,8 @@ int main()
 		}
 
 		Arena obj;
+
+		obj.setCoordBot();
 		obj.makeArena();
 		obj.showArena();
 
