@@ -13,8 +13,8 @@ const int sizeVec = 29;
 class Track {
 private:
 	string symbolTrack = "#", symbolBotTrack = "X";
-	int coordTrackX = 0, coordTrackY = 0;
-	int coordBotTrackX = 0, coordBotTrackY = 0;
+	int coordTrackX, coordTrackY;
+	int coordBotTrackX, coordBotTrackY;
 public:
 	void setCoordTrack(int x, int y) {
 		this->coordTrackX = x;
@@ -103,11 +103,11 @@ public:
 
 class Bot : public Player {
 private:
-	string botDirection = "right", directionBotX = "", directionBotY = "", botBike = "~";
+	string botDirection = "", directionBotX = "", directionBotY = "", botBike = "~";
 	int botCoordX = 0, botCoordY = 0;
 	bool flagBot = true;
 public:
-	void setCoordBot() {
+	Bot() {
 		while (this->flagBot == true) {
 			this->botCoordX = rand() % sizeVec;
 			this->botCoordY = rand() % sizeVec;
