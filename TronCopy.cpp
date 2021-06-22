@@ -13,11 +13,13 @@ const int sizeVec = 29;
 class Track {
 private:
 	string symbolTrack = "#", symbolBotTrack = "X";
-	int coordTrackX, coordTrackY;
-	int coordBotTrackX, coordBotTrackY;
+	int coordTrackX = 0, coordTrackY = 0;
+	int coordBotTrackX = 0, coordBotTrackY = 0;
 public:
-	void setCoordTrack(int x, int y) {
+	void setCoordTrackX(int x) {
 		this->coordTrackX = x;
+	}
+	void setCoordTrackY(int y) {
 		this->coordTrackY = y;
 	}
 	int getCoordTrackX() {
@@ -29,8 +31,10 @@ public:
 	string getSymbolTrack() {
 		return this->symbolTrack;
 	}
-	void setCoordBotTrack(int x, int y) {
+	void setCoordBotTrackX(int x) {
 		this->coordBotTrackX = x;
+	}
+	void setCoordBotTrackY(int y) {
 		this->coordBotTrackY = y;
 	}
 	int getCoordBotTrackX() {
@@ -76,22 +80,26 @@ public:
 	}
 	void moveBike() {
 		if (this->direction == "right") {
-			setCoordTrack(this->coordX, this->coordY);
+			setCoordTrackX(this->coordX);
+			setCoordTrackY(this->coordY);
 			this->bike = ">";
 			this->coordX += 1;
 		}
 		if (this->direction == "left") {
-			setCoordTrack(this->coordX, this->coordY);
+			setCoordTrackX(this->coordX);
+			setCoordTrackY(this->coordY);
 			this->bike = "<";
 			this->coordX -= 1;
 		}
 		if (this->direction == "down") {
-			setCoordTrack(this->coordX, this->coordY);
+			setCoordTrackX(this->coordX);
+			setCoordTrackY(this->coordY);
 			this->bike = "v";
 			this->coordY += 1;
 		}
 		if (this->direction == "up") {
-			setCoordTrack(this->coordX, this->coordY);
+			setCoordTrackX(this->coordX);
+			setCoordTrackY(this->coordY);
 			this->bike = "^";
 			this->coordY -= 1;
 		}
@@ -113,7 +121,9 @@ public:
 			this->botCoordY = rand() % sizeVec;
 			if (this->botCoordX != sizeVec / 2 && this->botCoordY != sizeVec / 2
 				&& this->botCoordX != sizeVec - 1 && this->botCoordY != sizeVec - 1
-				&& this->botCoordX != 0 && this->botCoordY != 0)
+				&& this->botCoordX != sizeVec - 2 && this->botCoordY != sizeVec - 2
+				&& this->botCoordX != 0 && this->botCoordY != 0
+				&& this->botCoordX != 1 && this->botCoordY != 1)
 				this->flagBot = false;
 		}
 		this->flagBot = true;
@@ -330,22 +340,26 @@ public:
 
 	void moveBot() {
 		if (this->botDirection == "right") {
-			setCoordBotTrack(this->botCoordX, this->botCoordY);
+			setCoordBotTrackX(this->botCoordX);
+			setCoordBotTrackY(this->botCoordY);
 			this->botBike = ")";
 			this->botCoordX += 1;
 		}
 		if (this->botDirection == "left") {
-			setCoordBotTrack(this->botCoordX, this->botCoordY);
+			setCoordBotTrackX(this->botCoordX);
+			setCoordBotTrackY(this->botCoordY);
 			this->botBike = "(";
 			this->botCoordX -= 1;
 		}
 		if (this->botDirection == "down") {
-			setCoordBotTrack(this->botCoordX, this->botCoordY);
+			setCoordBotTrackX(this->botCoordX);
+			setCoordBotTrackY(this->botCoordY);
 			this->botBike = "~";
 			this->botCoordY += 1;
 		}
 		if (this->botDirection == "up") {
-			setCoordBotTrack(this->botCoordX, this->botCoordY);
+			setCoordBotTrackX(this->botCoordX);
+			setCoordBotTrackY(this->botCoordY);
 			this->botBike = "~";
 			this->botCoordY -= 1;
 		}
@@ -449,7 +463,6 @@ int main()
 
 		Arena obj;
 
-		obj.setCoordBot();
 		obj.makeArena();
 		obj.showArena();
 
