@@ -320,6 +320,9 @@ public:
 				this->flagBot = false;
 				this->directionBotX = "left";
 				this->directionBotY = "down";
+				if (this->botDirection == "up") {
+					this->directionBotX = "right";
+				}
 			}
 		}
 		else if (arenaVector[i][this->botCoordX - 1] == "#" || arenaVector[i][this->botCoordX - 1] == "X" || arenaVector[i][this->botCoordX - 1] == "*"
