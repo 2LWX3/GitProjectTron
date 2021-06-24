@@ -8,7 +8,7 @@
 
 using namespace std;
 
-const int sizeVec = 29;
+const int sizeVec = 43;
 
 class Track {
 private:
@@ -459,8 +459,7 @@ int main()
 
 		bool flagStart = false;
 		while (flagStart == false) {
-			int pressStart = _getch();
-			if (pressStart == 13)
+			if ((int)_getch() == 13)
 				flagStart = true;
 		}
 
